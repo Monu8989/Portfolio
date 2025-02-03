@@ -62,7 +62,7 @@ const Projects = ({ theme }) => {
         <h2 className={`text-4xl font-extrabold ${theme === "dark" ? "text-white" : "text-black"}`}>Projects</h2>
         <p className="mt-4 text-lg text-gray-400">Here are some of my best projects</p>
 
-        <div className="mt-10">
+        <div className="mt-10 pb-10">
           <Swiper
             slidesPerView={1}
             spaceBetween={30}
@@ -72,7 +72,7 @@ const Projects = ({ theme }) => {
               1024: { slidesPerView: 3 },
             }}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
+            pagination={{ clickable: true, el: ".custom-pagination" }} // Custom pagination
             modules={[Pagination, Autoplay]}
             className="w-full pb-8"
           >
@@ -94,26 +94,34 @@ const Projects = ({ theme }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
 
-        {/* Pagination Bullets Outside the Card Area */}
-        <div className="swiper-pagination mt-6 text-center">
-          <style jsx>{`
-            .swiper-pagination {
-              margin-top: 30px; /* Adjust the space below the card */
-            }
-            .swiper-pagination-bullet {
-              background-color: #6366f1 !important; /* Blue color */
-              width: 10px;
-              height: 10px;
-            }
-            .swiper-pagination-bullet-active {
-              background-color: #2563eb !important; /* Darker blue */
-              margin-top:30px;
-            }
-          `}</style>
+          {/* Pagination Dots Below the Cards */}
+          <div className="custom-pagination flex justify-center mt-6 gap-3"></div>
         </div>
       </div>
+
+      {/* Global CSS for Pagination */}
+      <style jsx global>{`
+        .custom-pagination {
+          display: flex !important;
+          flex-direction: row !important; /* Bullets in a row */
+          justify-content: center !important;
+          align-items: center !important;
+          gap: 12px !important; /* Space between bullets */
+        }
+        .swiper-pagination-bullet {
+          background-color: #6366f1 !important;
+          width: 12px;
+          height: 12px;
+          margin: 0 6px !important;
+          border-radius: 50%;
+          transition: all 0.3s ease;
+        }
+        .swiper-pagination-bullet-active {
+          background-color: #2563eb !important;
+          transform: scale(1.3); /* Active bullet is slightly bigger */
+        }
+      `}</style>
     </section>
   );
 };
